@@ -1,108 +1,49 @@
+import { useEffect, useState } from 'react'
 import ProductsList from '../../components/ProductsList'
-import Game from '../../models/Game'
+import { Game } from '../Home'
 
-import POE2 from '../../assets/images/POE2.jpg'
-import Kingdom from '../../assets/images/Kingdom.jpg'
-import Persona from '../../assets/images/P5R.jpg'
-import Ultrakill from '../../assets/images/Ultrakill.jpg'
-import resident from '../../assets/images/resident.png'
-import Diablo from '../../assets/images/diablo.png'
-import StarWars from '../../assets/images/star_wars.png'
-import Zelda from '../../assets/images/zelda.png'
+const Categories = () => {
+  const [gamesAcao, setGamesAcao] = useState<Game[]>([])
+  const [gamesEsportes, setGamesEsportes] = useState<Game[]>([])
+  const [gamesSimulacao, setGamesSimulacao] = useState<Game[]>([])
+  const [gamesLuta, setGamesLuta] = useState<Game[]>([])
+  const [gamesRPG, setGamesRPG] = useState<Game[]>([])
 
-const promocoes: Game[] = [
-  {
-    id: 1,
-    category: 'ARPG',
-    description:
-      'O Path of Exile 2 é um RPG de Ação da nova geração criado pela Grinding Gear Games. Ele se passa anos após o Path of Exile original, você retornará ao mundo de Wraeclast para tentar dar um fim à corrupção que está se espalhando.',
-    title: 'Path Of Exile II',
-    system: 'Windows',
-    infos: ['10%', 'R$ 80,50'],
-    image: POE2
-  },
-  {
-    id: 2,
-    category: 'Tower Defense',
-    description:
-      'Viaje, explore e reconstrua o seu reino nas ilhas misteriosas e tranquilas deste jogo de microestratégia atmosférico. Recolha moedas para desbloquear novas tecnologias ou construir suas defesas. Noite após noite, a sós ou com amigos, enfrente ondas de monstros da Ganância.',
-    title: 'Kingdom Two Crowns',
-    system: 'Windows',
-    infos: ['75%', 'R$ 14,99'],
-    image: Kingdom
-  },
-  {
-    id: 3,
-    category: 'RPG',
-    description:
-      'Vista a máscara, junte-se aos Phantom Thieves of Hearts, arme grandes assaltos, infiltre-se nas mentes dos corruptos e faça eles mudarem de atitude!',
-    title: 'Persona 5 Royal ',
-    system: 'Windows',
-    infos: ['10%', 'R$ 249,90'],
-    image: Persona
-  },
-  {
-    id: 4,
-    category: 'FPS',
-    description:
-      'ULTRAKILL is a fast-paced ultraviolent retro FPS combining the skill-based style scoring from character action games with unadulterated carnage inspired by the best shooters of the 90s. Rip apart your foes with varied destructive weapons and shower in their blood to regain your health.',
-    title: 'Ultrakill',
-    system: 'Windows',
-    infos: ['10%', 'R$ 73,99'],
-    image: Ultrakill
-  }
-]
+  useEffect(() => {
+    fetch('https://fake-api-tau.vercel.app/api/eplay/acao')
+      .then((res) => res.json())
+      .then((res) => setGamesAcao(res))
 
-const emBreve: Game[] = [
-  {
-    id: 5,
-    category: 'Survival Horror',
-    description:
-      'Sobrevivência é apenas o começo. Seis anos se passaram desde o desastre biológico em Raccoon City. Leon S. Kennedy, um dos sobreviventes, segue o rastro da raptada filha do presidente até uma vila europeia isolada, onde há algo terrivelmente errado com os habitantes.',
-    title: 'Resident Evil 4',
-    system: 'PS5',
-    infos: ['13/12'],
-    image: resident
-  },
-  {
-    id: 6,
-    category: 'ARPG',
-    description:
-      'Junte-se à luta por Santuário no Diablo® IV, a aventura suprema de RPG de ação. Vivencie a campanha aclamada pela crítica e os novos conteúdos de temporada.',
-    title: 'Diablo® IV',
-    system: 'Linux',
-    infos: ['16/12'],
-    image: Diablo
-  },
-  {
-    id: 7,
-    category: 'RPG',
-    description:
-      'Esqueça tudo que você sabe sobre os jogos da série The Legend of Zelda. Entre em um mundo de descobertas, exploração e aventura em The Legend of Zelda: Breath of the Wild, o novo jogo da famosa série que veio para romper barreiras. ',
-    title: 'The Legend of Zelda™: Breath of the Wild',
-    system: 'Nintendo Switch',
-    infos: ['20/12'],
-    image: Zelda
-  },
-  {
-    id: 8,
-    category: 'RPG',
-    description:
-      'A história de Cal Kestis continua em STAR WARS Jedi: Survivor™, uma aventura em terceira pessoa na galáxia.',
-    title: 'STAR WARS Jedi: Survivor™',
-    system: 'Windows',
-    infos: ['30/12'],
-    image: StarWars
-  }
-]
+    fetch('https://fake-api-tau.vercel.app/api/eplay/esportes')
+      .then((res) => res.json())
+      .then((res) => setGamesEsportes(res))
 
-const Categories = () => (
-  <>
-    <ProductsList games={promocoes} title="RPG" background="gray" />
-    <ProductsList games={emBreve} title="FPS" background="black" />
-    <ProductsList games={promocoes} title="Aventura" background="gray" />
-    <ProductsList games={emBreve} title="Ação" background="black" />
-  </>
-)
+    fetch('https://fake-api-tau.vercel.app/api/eplay/simulacao')
+      .then((res) => res.json())
+      .then((res) => setGamesSimulacao(res))
+
+    fetch('https://fake-api-tau.vercel.app/api/eplay/luta')
+      .then((res) => res.json())
+      .then((res) => setGamesLuta(res))
+
+    fetch('https://fake-api-tau.vercel.app/api/eplay/rpg')
+      .then((res) => res.json())
+      .then((res) => setGamesRPG(res))
+  }, [])
+
+  return (
+    <>
+      <ProductsList games={gamesRPG} title="RPG" background="black" />
+      <ProductsList games={gamesAcao} title="Ação" background="gray" />
+      <ProductsList games={gamesLuta} title="Luta" background="black" />
+      <ProductsList
+        games={gamesSimulacao}
+        title="Simulação"
+        background="gray"
+      />
+      <ProductsList games={gamesEsportes} title="Esportes" background="black" />
+    </>
+  )
+}
 
 export default Categories
